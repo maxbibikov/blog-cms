@@ -24,5 +24,5 @@ export function getBlogApiUrl(apiResourcePath, apiEnv = process.env.NODE_ENV) {
     return `http://localhost:3000${addPathSlash(apiResourcePath)}`;
   }
 
-  return `https://mb-blog-api.herokuapp.com${addPathSlash(apiResourcePath)}`;
+  return `http://api.hellowrld.tech${addPathSlash(apiResourcePath)}`;
 }
