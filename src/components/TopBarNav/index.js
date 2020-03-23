@@ -45,7 +45,7 @@ export function TopBarNav({ authorized }) {
         <img src={logo} className={styles.logo} alt="logo" />
         <StyledLink label="Posts" to="/" activeOnlyWhenExact="true" />
         <StyledLink
-          label="New"
+          label="Write"
           to="/new"
           activeOnlyWhenExact="true"
         />

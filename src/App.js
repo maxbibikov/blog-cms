@@ -13,7 +13,7 @@ import './App.css';
 // Pages
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
-import { Categories } from './pages/Categories';
+import { NewPost } from './pages/NewPost';
 
 function App() {
   const [authorized, setAuthorized] = useState(false);
@@ -23,7 +23,7 @@ function App() {
       .then(() => setAuthorized(true))
       .catch(err => {
         setAuthorized(false);
-        console.log(err.message);
+        console.error(err.message);
       });
   }, []);
 
@@ -38,8 +38,8 @@ function App() {
           <Route path="/login">
             <Login authorized={authorized} setAuthorized={setAuthorized} />
           </Route>
-          <Route path="/categories">
-            <Categories />
+          <Route path="/new">
+            <NewPost />
           </Route>
         </Switch>
       </main>
