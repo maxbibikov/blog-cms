@@ -23,24 +23,27 @@ function InputError({ errorMessage }) {
   return null;
 }
 
-export function PostForm() {
+export function PostForm({ authorized }) {
+  console.log('authorized: ', authorized);
   const [postCreated, setPostCreated] = useState(false);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    fetchBlogApi('/categories', 'GET')
-      .then(({ categories }) => {
-        setCategories(categories);
-      })
-      .catch(err => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    if (authorized) {
+      setLoading(true);
+      fetchBlogApi('/categories', 'GET')
+        .then(({ categories }) => {
+          setCategories(categories);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [authorized]);
   if (postCreated) {
     return <Redirect to="/" />;
   }
@@ -61,6 +64,10 @@ export function PostForm() {
 
   return null;
 }
+
+PostForm.propTypes = {
+  authorized: bool.isRequired,
+};
 // const postSchema = new mongoose.Schema({
 //     slug: { type: String, required: true, minlength: 5, maxlength: 70 },
 //     title: { type: String, required: true, minlength: 5, maxlength: 50 },

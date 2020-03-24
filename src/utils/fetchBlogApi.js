@@ -12,33 +12,44 @@ export function fetchBlogApi(resourcePath, method, body) {
     },
     body: body ? JSON.stringify(body) : null,
   })
-    .then((response) => {
+    .then(response => {
       if (!response.ok) {
-        return response
-          .json()
-          .then((data) => {
-            if (data.error) {
-              throw Error(data.error);
-            }
+        const contentType = response.headers.get('Content-Type');
 
-            throw Error('Connection error');
-          })
-          .catch((err) => {
-            throw Error(err);
+        if (contentType === 'application/json') {
+          return response
+            .json()
+            .then(data => {
+              if (data.error) {
+                return data;
+              }
+
+              throw Error('Connection error');
+            })
+            .catch(err => {
+              throw Error(err.message);
+            });
+        }
+
+        return response
+          .text()
+          .then(message => ({ error: { message } }))
+          .catch(err => {
+            throw Error(err.message);
           });
       }
       return response
         .json()
-        .then((data) => {
+        .then(data => {
           if (data.error) {
             throw Error(data.error);
           }
 
           return data;
         })
-        .catch((err) => {
+        .catch(err => {
           throw Error(err);
         });
     })
-    .catch((err) => Promise.reject(new Error(err.message)));
+    .catch(err => Promise.reject(new Error(err.message)));
 }

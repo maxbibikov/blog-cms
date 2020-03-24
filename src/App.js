@@ -11,37 +11,50 @@ import { TopBarNav } from './components/TopBarNav';
 import './App.css';
 
 // Pages
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { NewPost } from './pages/NewPost';
+import { Home } from './pages/HomePage';
+import { Login } from './pages/LoginPage';
+import { NewPost } from './pages/NewPostPage';
+
+export const AuthContext = React.createContext(false);
 
 function App() {
   const [authorized, setAuthorized] = useState(false);
 
-  useEffect(() => {
+  function authorize() {
     fetchBlogApi('/auth', 'POST')
-      .then(() => setAuthorized(true))
+      .then(data => {
+        if (data.error) {
+          return setAuthorized(false);
+        }
+        return setAuthorized(true);
+      })
       .catch(err => {
         setAuthorized(false);
-        console.error(err.message);
+        console.error('err: ', err);
       });
+  }
+
+  useEffect(() => {
+    authorize();
   }, []);
 
   return (
     <BrowserRouter>
       <TopBarNav />
       <main>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login authorized={authorized} setAuthorized={setAuthorized} />
-          </Route>
-          <Route path="/new">
-            <NewPost />
-          </Route>
-        </Switch>
+        <AuthContext.Provider value={authorized}>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login authorized={authorized} setAuthorized={setAuthorized} />
+            </Route>
+            <Route authorized={authorized} path="/new">
+              <NewPost />
+            </Route>
+          </Switch>
+        </AuthContext.Provider>
       </main>
     </BrowserRouter>
   );

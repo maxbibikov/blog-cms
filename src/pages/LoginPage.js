@@ -21,15 +21,27 @@ export function Login({ setAuthorized, authorized }) {
       password,
     })
       .then(() => setAuthorized(true))
-      .catch((err) => setError(err.message));
+      .catch(err => setError(err.message));
   };
 
-  const onUsernameChange = (event) => setUsername(event.target.value);
-  const onPasswordChange = (event) => setPassword(event.target.value);
-  const onSubmitClick = (event) => {
+  const logoutAsync = () => {
+    return fetchBlogApi('/auth/logout', 'POST')
+      .then(data => {
+        if (data.ok) {
+          setAuthorized(false);
+        }
+      })
+      .catch(err => setError(err.message));
+  };
+
+  const onUsernameChange = event => setUsername(event.target.value);
+  const onPasswordChange = event => setPassword(event.target.value);
+  const onSubmitClick = event => {
     event.preventDefault();
     loginAsync();
   };
+
+  const onLogoutClick = () => logoutAsync();
 
   if (!authorized) {
     return (
@@ -64,6 +76,7 @@ export function Login({ setAuthorized, authorized }) {
         <span role="img" aria-label="funny ghost emoji">
           👻
         </span>
+        <button onClick={onLogoutClick}>Logout</button>
       </h1>
     </section>
   );
