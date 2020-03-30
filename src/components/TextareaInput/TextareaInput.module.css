@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+}
+
+.textInput {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #2c003e;
+  border-color: #2c003e;
+  color: #2c003e;
+  border-radius: 5px;
+  padding: 1em;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.textInput:focus {
+  box-shadow: inset 0px 0px 0px 2px #2c003e;
+}
+
+.textInput_error {
+  border-color: var(--accent-text-color);
+}
+
+.textInput_error:focus {
+  box-shadow: inset 0px 0px 0px 2px var(--accent-text-color);
+}

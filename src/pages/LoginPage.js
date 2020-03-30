@@ -1,88 +1,71 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
-// Utils
+import { Redirect } from 'react-router-dom';
+import { bool, func } from 'prop-types';
+// Components
+import { LoginForm } from '../components/LoginForm/LoginForm';
 import { fetchBlogApi } from '../utils';
 
-export function Login({ setAuthorized, authorized }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export function LoginPage({
+  setAuthorized,
+  authorized,
+  setUser,
+  loading,
+  setLoading,
+}) {
   const [error, setError] = useState('');
 
-  const loginAsync = () => {
+  const loginAsync = (username, password) => {
     if (!username || !password) {
       return null;
     }
-
     setError('');
+    setLoading(true);
 
     return fetchBlogApi('/auth/login', 'POST', {
       username,
       password,
     })
-      .then(() => setAuthorized(true))
-      .catch(err => setError(err.message));
-  };
-
-  const logoutAsync = () => {
-    return fetchBlogApi('/auth/logout', 'POST')
       .then(data => {
-        if (data.ok) {
-          setAuthorized(false);
+        if (data.error) {
+          return setError(data.error.message);
         }
+        setUser(data);
+        return setAuthorized(true);
       })
-      .catch(err => setError(err.message));
+      .catch(err => {
+        setAuthorized(false);
+        console.error('err: ', err);
+      })
+      .finally(() => setLoading(false));
   };
 
-  const onUsernameChange = event => setUsername(event.target.value);
-  const onPasswordChange = event => setPassword(event.target.value);
-  const onSubmitClick = event => {
-    event.preventDefault();
-    loginAsync();
-  };
-
-  const onLogoutClick = () => logoutAsync();
-
-  if (!authorized) {
+  // RENDER
+  if (loading) {
     return (
-      <section>
-        {error && <p style={{ color: 'salmon' }}>{error}</p>}
-        <form>
-          <div>
-            <label htmlFor="username">Username</label>
-            <input id="username" onChange={onUsernameChange} value={username} />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              onChange={onPasswordChange}
-              value={password}
-            />
-          </div>
-          <button onClick={onSubmitClick} type="submit">
-            Submit
-          </button>
-        </form>
-      </section>
+      <div
+        style={{
+          display: 'flex',
+          height: '100vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <h1>...Loading</h1>
+      </div>
     );
   }
 
-  return (
-    <section>
-      <h1>
-        Welcome back, User!
-        <span role="img" aria-label="funny ghost emoji">
-          👻
-        </span>
-        <button onClick={onLogoutClick}>Logout</button>
-      </h1>
-    </section>
-  );
+  if (!authorized) {
+    return <LoginForm error={error} loginAsync={loginAsync} />;
+  }
+
+  return <Redirect to="/user" />;
 }
 
-Login.propTypes = {
-  authorized: PropTypes.bool.isRequired,
-  setAuthorized: PropTypes.func.isRequired,
+LoginPage.propTypes = {
+  authorized: bool.isRequired,
+  setUser: func.isRequired,
+  loading: bool.isRequired,
+  setLoading: func.isRequired,
+  setAuthorized: func.isRequired,
 };

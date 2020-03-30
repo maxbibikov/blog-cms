@@ -16,7 +16,7 @@ export function fetchBlogApi(resourcePath, method, body) {
       if (!response.ok) {
         const contentType = response.headers.get('Content-Type');
 
-        if (contentType === 'application/json') {
+        if (contentType && contentType.includes('application/json')) {
           return response
             .json()
             .then(data => {
@@ -42,13 +42,13 @@ export function fetchBlogApi(resourcePath, method, body) {
         .json()
         .then(data => {
           if (data.error) {
-            throw Error(data.error);
+            throw Error(data.error.message);
           }
 
           return data;
         })
         .catch(err => {
-          throw Error(err);
+          throw Error(err.message);
         });
     })
     .catch(err => Promise.reject(new Error(err.message)));

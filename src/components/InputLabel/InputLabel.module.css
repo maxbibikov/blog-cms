@@ -1,0 +1,7 @@
+.block_label {
+  display: block;
+  margin-bottom: 0.3em;
+  cursor: pointer;
+  color: #2c003e;
+  font-weight: bold;
+}

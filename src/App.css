@@ -1,11 +1,19 @@
+:root {
+  --main-bg-color: #d2fafb;
+  --contrast-bg-color: #2c003e;
+  --contrast-bg-lighter-color: #512b58;
+  --accent-bg-color: #fe346e;
+  --main-text-color: #2c003e;
+  --contrast-text-color: #d2fafb;
+  --accent-text-color: #fe346e;
+}
+
 main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-bottom: 10em;
-  margin-left: 0;
 }
 
 /* Big screens */

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 // Styles
-import styles from './TopBarNav.module.css';
+import styles from './MainNav.module.css';
 
 // Assets
 import logo from '../../assets/logo.svg';
@@ -27,11 +27,12 @@ function StyledLink({ label, to, activeOnlyWhenExact }) {
   );
 }
 
-export function TopBarNav({ authorized }) {
+export function MainNav({ authorized }) {
   let authButton;
+
   if (authorized) {
     authButton = (
-      <StyledLink label="Logout" to="/logout" activeOnlyWhenExact="true" />
+      <StyledLink label="User" to="/user" activeOnlyWhenExact="true" />
     );
   } else {
     authButton = (
@@ -44,11 +45,7 @@ export function TopBarNav({ authorized }) {
       <nav className={styles.nav_list}>
         <img src={logo} className={styles.logo} alt="logo" />
         <StyledLink label="Posts" to="/" activeOnlyWhenExact="true" />
-        <StyledLink
-          label="Write"
-          to="/new"
-          activeOnlyWhenExact="true"
-        />
+        <StyledLink label="Write" to="/new" activeOnlyWhenExact="true" />
         {authButton}
       </nav>
     </section>

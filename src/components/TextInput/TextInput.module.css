@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+}
+
+.textInput {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid var(--contrast-bg-color);
+  border-radius: 5px;
+  color: var(--text-main-color);
+  padding: 0.5 1em;
+  font-size: 1.2rem;
+}
+
+.textInput:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px var(--contrast-bg-color);
+}
+
+.textInput_error {
+    border-color: var(--accent-bg-color); 
+}
+.textInput_error:focus {
+    border-color: var(--accent-bg-color); 
+    box-shadow: inset 0px 0px 0px 2px var(--accent-bg-color);
+}
