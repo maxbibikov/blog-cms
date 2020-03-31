@@ -1,8 +1,8 @@
 import React from 'react';
 
 // Components
-import { PostListController } from '../components/PostList/PostListController';
+import { PostList } from '../components/PostList';
 
 export function HomePage() {
-  return <PostListController />;
+  return <PostList />;
 }

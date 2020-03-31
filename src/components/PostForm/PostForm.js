@@ -38,11 +38,9 @@ export function PostForm(props) {
   const [publish, setPublish] = useState(props.published);
   const [articles, setArticles] = useState([]);
   const [category, setCategory] = useState(props.category);
-  const [titleErr, setTitleErr] = useState('test title error');
-  const [descriptionErr, setDescriptionErr] = useState(
-    'test description error'
-  );
-  const [textErr, setTextErr] = useState('test post text error');
+  const [titleErr, setTitleErr] = useState('');
+  const [descriptionErr, setDescriptionErr] = useState('');
+  const [textErr, setTextErr] = useState('');
 
   useEffect(() => {
     const keywords = ['techcrunch', 'ars-technica', 'bbc-sport'];

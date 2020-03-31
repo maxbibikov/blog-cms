@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-bottom: 10em;
+}
+.posts {
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  height: 350px;
+  transform: scale(1);
+  transition: transform 0.2s linear;
+  border: 0;
+  border-top: 6px solid var(--contrast-bg-color);
+  border-image: linear-gradient(
+      109.2deg,
+      rgba(254, 3, 104, 1) 9.3%,
+      rgba(103, 3, 255, 1) 89.5%
+    )
+    10;
+}
+
+.post a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 350px;
+  color: var(--main-text-color);
+  text-decoration: none;
+}
+
+.post a:hover {
+  color: currentColor;
+}
+
+.post a:visited {
+  color: currentColor;
+}
+
+.postTitle {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1em;
+  margin: 0;
+  color: var(--accent-text-color);
+}
+.descriptionText {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--main-text-color);
+}
+
+.postFooter {
+  align-self: flex-end;
+  margin-bottom: 1em;
+  padding: 0 1em;
+}
+
+/* Tablet */
+@media only screen and (min-width: 600px) {
+  .posts {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+  }
+  .post {
+    width: 45%;
+  }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .post {
+    transform: scale(1);
+    transition: transform 0.2s linear;
+    border: 0;
+    border-top: 6px solid var(--contrast-bg-color);
+  }
+
+  .post:hover {
+    transform: scale(1.01);
+    transition: transform 0.2s linear;
+    border-image: linear-gradient(
+        109.2deg,
+        rgba(254, 3, 104, 1) 9.3%,
+        rgba(103, 3, 255, 1) 89.5%
+      )
+      10;
+  }
+
+  .post {
+    width: 30%;
+  }
+}

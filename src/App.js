@@ -9,6 +9,7 @@ import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { NewPostPage } from './pages/NewPostPage';
 import { UserPage } from './pages/UserPage';
+import { PostPage } from './pages/PostPage';
 
 export const AuthContext = React.createContext(false);
 
@@ -78,6 +79,9 @@ function App() {
               logoutAsync={logoutAsync}
               loading={loading}
             />
+          </Route>
+          <Route path="/posts/:postSlug">
+            <PostPage />
           </Route>
         </Switch>
       </main>
