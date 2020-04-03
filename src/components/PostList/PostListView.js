@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { arrayOf, shape } from 'prop-types';
 
-// Styles
+// Components
 import styles from './PostList.module.css';
 
 export function PostListView({ posts }) {

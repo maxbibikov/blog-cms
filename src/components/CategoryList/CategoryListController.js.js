@@ -11,12 +11,14 @@ export function CategoryListController() {
   const [error, setError] = useState('');
   useEffect(() => {
     fetchBlogApi('/categories', 'GET')
-      .then((data) => {
+      .then(data => {
         setCategories(data.categories);
       })
-      .catch((err) => {
+      .catch(err => {
         setError(err.message);
       });
+
+    return () => {};
   }, []);
 
   if (error) {

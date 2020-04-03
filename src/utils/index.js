@@ -1,3 +1,4 @@
 import { fetchBlogApi } from './fetchBlogApi';
+import { fetchRandomPosts } from './fetchRandomPosts';
 
-export { fetchBlogApi };
+export { fetchBlogApi, fetchRandomPosts };

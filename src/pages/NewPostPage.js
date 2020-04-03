@@ -1,49 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { bool } from 'prop-types';
+import { bool, arrayOf, shape } from 'prop-types';
 // Components
-import { PostForm } from '../components/PostForm/PostForm.js';
+import { PostForm } from '../components/PostForm/';
 import { NotAuthorized } from '../components/NotAuthorized/NotAuthorized';
-import { fetchBlogApi } from '../utils/';
 
-export function NewPostPage({ authorized }) {
+export function NewPostPage({ authorized, categories }) {
   const [postCreated, setPostCreated] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
+  if (!authorized) {
+    return <NotAuthorized />;
+  }
 
-  useEffect(() => {
-    setLoading(true);
-    fetchBlogApi('/categories', 'GET')
-      .then(({ categories }) => {
-        setCategories(categories);
-      })
-      .catch(err => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
   if (postCreated) {
     return <Redirect to="/" />;
   }
 
-  if (categories && categories.length > 0) {
+  if (categories.length > 0) {
     return (
       <PostForm
         formMode="New"
-        categoryList={categories}
+        categories={categories}
         setPostCreated={setPostCreated}
         category={categories[0]._id}
       />
     );
-  }
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (!authorized) {
-    return <NotAuthorized />;
   }
 
   return null;
@@ -51,4 +31,5 @@ export function NewPostPage({ authorized }) {
 
 NewPostPage.propTypes = {
   authorized: bool.isRequired,
+  categories: arrayOf(shape({}).isRequired).isRequired,
 };

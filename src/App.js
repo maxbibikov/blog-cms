@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // Components
 import { MainNav } from './components/MainNav/MainNav';
 import { fetchBlogApi } from './utils';
@@ -9,31 +9,48 @@ import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { NewPostPage } from './pages/NewPostPage';
 import { UserPage } from './pages/UserPage';
-import { PostPage } from './pages/PostPage';
-
-export const AuthContext = React.createContext(false);
 
 function App() {
   const [authorized, setAuthorized] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
 
-  function authorize() {
+  useEffect(() => {
+    function authorize() {
+      fetchBlogApi('/auth', 'POST')
+        .then(data => {
+          if (data.error) {
+            return setAuthorized(false);
+          }
+          setUser(data);
+          return setAuthorized(true);
+        })
+        .catch(err => {
+          setAuthorized(false);
+          console.error('err: ', err);
+        })
+        .finally(() => setLoading(false));
+    }
+    authorize();
+    return () => {};
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
-    fetchBlogApi('/auth', 'POST')
-      .then(data => {
-        if (data.error) {
-          return setAuthorized(false);
-        }
-        setUser(data);
-        return setAuthorized(true);
+    fetchBlogApi('/categories', 'GET')
+      .then(({ categories }) => {
+        setCategories(categories);
       })
       .catch(err => {
-        setAuthorized(false);
-        console.error('err: ', err);
+        console.error(err);
       })
-      .finally(() => setLoading(false));
-  }
+      .finally(() => {
+        setLoading(false);
+      });
+
+    return () => {};
+  }, []);
 
   const logoutAsync = () => {
     setLoading(true);
@@ -47,20 +64,19 @@ function App() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => {
-    authorize();
-  }, []);
-
   return (
     <BrowserRouter>
       <MainNav authorized={authorized} />
       <main>
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <Redirect to="posts" />
+          </Route>
+          <Route path="/posts">
+            <HomePage authorized={authorized} categories={categories} />
           </Route>
           <Route path="/new">
-            <NewPostPage authorized={authorized} />
+            <NewPostPage authorized={authorized} categories={categories} />
           </Route>
           <Route path="/login">
             <LoginPage
@@ -79,9 +95,6 @@ function App() {
               logoutAsync={logoutAsync}
               loading={loading}
             />
-          </Route>
-          <Route path="/posts/:postSlug">
-            <PostPage />
           </Route>
         </Switch>
       </main>

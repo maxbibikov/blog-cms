@@ -72,9 +72,22 @@
   border-radius: 50%;
 }
 
-.button_container {
+.controlls {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.createBtn {
   width: 80%;
-  align-self: center;
+}
+
+.updateBtn {
+  width: 40%;
+}
+
+.deleteBtn {
+  width: 40%;
 }
 
 .submit_btn {

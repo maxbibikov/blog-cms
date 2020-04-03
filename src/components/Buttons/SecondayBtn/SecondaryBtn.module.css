@@ -1,17 +1,18 @@
 .btn {
+  width: 100%;
+  padding: 0.5em 1em;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 3em;
   border: 2px solid var(--contrast-bg-color);
+  border-radius: 10px;
   background-color: #fff;
   color: var(--main-text-color);
-  font-size: 1rem;
+  box-shadow: 0px 2px 6px hsla(0, 0%, 0%, 0.2);
+  font-size: 1.1rem;
   font-weight: bold;
-  border-radius: 10px;
-  padding: 0.5em 1em;
   outline: none;
-  width: 100%;
 }
 
 .btn:hover {
