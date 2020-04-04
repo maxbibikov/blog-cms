@@ -5,6 +5,7 @@ import { PostList } from '../components/PostList';
 import { PostPage } from '../pages/PostPage';
 // Utils
 import { fetchBlogApi } from '../utils/';
+import { Loader } from '../components/Loader';
 
 export function HomePage({ authorized, categories }) {
   const [posts, setPosts] = useState([]);
@@ -16,8 +17,8 @@ export function HomePage({ authorized, categories }) {
     const loadPosts = () => {
       setLoading(true);
       fetchBlogApi('/posts', 'GET')
-        .then(data => setPosts(data))
-        .catch(err => setError(err.message))
+        .then((data) => setPosts(data))
+        .catch((err) => setError(err.message))
         .finally(() => setLoading(false));
     };
     loadPosts();
@@ -25,7 +26,7 @@ export function HomePage({ authorized, categories }) {
   }, []);
 
   if (loading) {
-    return <h1>...Loading</h1>;
+    return <Loader />;
   }
 
   if (error) {

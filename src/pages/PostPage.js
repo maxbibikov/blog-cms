@@ -7,6 +7,7 @@ import { NotAuthorized } from '../components/NotAuthorized/NotAuthorized';
 
 // Utils
 import { fetchBlogApi } from '../utils';
+import { Loader } from '../components/Loader';
 
 export function PostPage({ posts, categories, authorized }) {
   const [loading, setLoading] = useState(false);
@@ -14,14 +15,14 @@ export function PostPage({ posts, categories, authorized }) {
   const [postUpdated, setPostUpdated] = useState(false);
   const { postSlug } = useParams();
 
-  const postData = posts.find(post => post.slug === postSlug);
+  const postData = posts.find((post) => post.slug === postSlug);
   const deletePost = () => {
     setLoading(true);
     fetchBlogApi(`/posts/${postSlug}`, 'DELETE')
       .then(() => {
         setDeleted(true);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       })
       .finally(() => setLoading(false));
@@ -32,11 +33,7 @@ export function PostPage({ posts, categories, authorized }) {
   }
 
   if (loading) {
-    return (
-      <section className={styles.errorContainer}>
-        <h1>...Loading</h1>
-      </section>
-    );
+    return <Loader />;
   }
 
   if (deleted) {

@@ -4,6 +4,7 @@ import { bool, func } from 'prop-types';
 // Components
 import { LoginForm } from '../components/LoginForm/LoginForm';
 import { fetchBlogApi } from '../utils';
+import { Loader } from '../components/Loader';
 
 export function LoginPage({
   setAuthorized,
@@ -25,14 +26,14 @@ export function LoginPage({
       username,
       password,
     })
-      .then(data => {
+      .then((data) => {
         if (data.error) {
           return setError(data.error.message);
         }
         setUser(data);
         return setAuthorized(true);
       })
-      .catch(err => {
+      .catch((err) => {
         setAuthorized(false);
         console.error('err: ', err);
       })
@@ -41,18 +42,7 @@ export function LoginPage({
 
   // RENDER
   if (loading) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          height: '100vh',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <h1>...Loading</h1>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (!authorized) {

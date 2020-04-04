@@ -1,0 +1,37 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.caption {
+  color: var(--main-text-color);
+}
+
+/* loading dots */
+.caption::after {
+  content: '.';
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    color: transparent;
+    text-shadow: 0.25em 0 0 transparent, 0.5em 0 0 transparent;
+  }
+  40% {
+    color: var(--main-text-color);
+    text-shadow: 0.25em 0 0 transparent, 0.5em 0 0 transparent;
+  }
+  60% {
+    text-shadow: 0.25em 0 0 var(--main-text-color), 0.5em 0 0 transparent;
+  }
+
+  80%,
+  100% {
+    text-shadow: 0.25em 0 0 var(--main-text-color),
+      0.5em 0 0 var(--main-text-color);
+  }
+}

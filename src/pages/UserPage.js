@@ -2,24 +2,14 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { func, shape, string, bool } from 'prop-types';
 // Components
-import { PrimaryBtn } from '../components/Buttons/PrimaryBtn/PrimaryBtn';
 import styles from './UserPage.module.css';
+import { PrimaryBtn } from '../components/Buttons';
+import { Loader } from '../components/Loader';
 
 export function UserPage({ authorized, user, logoutAsync, loading }) {
   // RENDER
   if (loading) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          height: '100vh',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <h1>...Loading</h1>
-      </div>
-    );
+    return <Loader />;
   }
   if (authorized) {
     return (

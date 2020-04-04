@@ -1,29 +1,30 @@
 .container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; 
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 input {
-    border: 2px solid var(--contrast-bg-color);
-    border-radius: 6px;
-    padding: 0.5em 1em;
-    font-size: 1.2rem;
-    outline: none;
+  border: 2px solid var(--contrast-bg-color);
+  border-radius: 6px;
+  padding: 0.5em 1em;
+  font-size: 1.2rem;
+  outline: none;
 }
 
 input:focus {
-    box-shadow: inset 0 0 0 1px var(--contrast-bg-color);
+  box-shadow: inset 0 0 0 1px var(--contrast-bg-color);
 }
 
 .inputContainer {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 .btnContainer {
-    margin-top: 1em;
-    width: 50%;
+  margin-top: 1em;
+  width: 10em;
 }
+

@@ -6,7 +6,7 @@ export function NotAuthorized() {
   return (
     <section className={styles.container}>
       <h1>
-        To create a new post, please <Link to="/login">Login</Link> <span role="img" aria-label="alien face">👽</span>
+        To make changes, please <Link to="/login">Login</Link> <span role="img" aria-label="alien face">👽</span>
       </h1>
     </section>
   );
