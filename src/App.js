@@ -69,9 +69,6 @@ function App() {
       <MainNav authorized={authorized} />
       <main>
         <Switch>
-          <Route exact path="/">
-            <Redirect to="posts" />
-          </Route>
           <Route path="/posts">
             <HomePage authorized={authorized} categories={categories} />
           </Route>

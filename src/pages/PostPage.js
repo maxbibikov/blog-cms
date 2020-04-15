@@ -37,11 +37,11 @@ export function PostPage({ posts, categories, authorized }) {
   }
 
   if (deleted) {
-    return <Redirect to="/" />;
+    return <Redirect to="/posts" />;
   }
 
   if (postUpdated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/posts" />;
   }
 
   return (
