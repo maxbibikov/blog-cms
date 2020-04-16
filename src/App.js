@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // Components
 import { MainNav } from './components/MainNav/MainNav';
 import { fetchBlogApi } from './utils';
@@ -19,14 +19,14 @@ function App() {
   useEffect(() => {
     function authorize() {
       fetchBlogApi('/auth', 'POST')
-        .then(data => {
+        .then((data) => {
           if (data.error) {
             return setAuthorized(false);
           }
           setUser(data);
           return setAuthorized(true);
         })
-        .catch(err => {
+        .catch((err) => {
           setAuthorized(false);
           console.error('err: ', err);
         })
@@ -42,7 +42,7 @@ function App() {
       .then(({ categories }) => {
         setCategories(categories);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       })
       .finally(() => {
@@ -55,12 +55,12 @@ function App() {
   const logoutAsync = () => {
     setLoading(true);
     return fetchBlogApi('/auth/logout', 'POST')
-      .then(data => {
+      .then((data) => {
         if (data.ok) {
           setAuthorized(false);
         }
       })
-      .catch(err => console.error(err.message))
+      .catch((err) => console.error(err.message))
       .finally(() => setLoading(false));
   };
 
@@ -69,6 +69,9 @@ function App() {
       <MainNav authorized={authorized} />
       <main>
         <Switch>
+          <Route exact path="/">
+            <Redirect to="/posts" />
+          </Route>
           <Route path="/posts">
             <HomePage authorized={authorized} categories={categories} />
           </Route>

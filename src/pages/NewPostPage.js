@@ -12,7 +12,7 @@ export function NewPostPage({ authorized, categories }) {
   }
 
   if (postCreated) {
-    return <Redirect to="/posts" />;
+    return <Redirect to="/" />;
   }
 
   if (categories.length > 0) {
