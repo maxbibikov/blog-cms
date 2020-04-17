@@ -21,7 +21,7 @@ export function getBlogApiUrl(apiResourcePath, apiEnv = process.env.NODE_ENV) {
     throw Error(`Param "apiEnv" expected string. But got ${apiEnvType}`);
   }
   if (apiEnv === 'development') {
-    return `http://localhost:3000${addPathSlash(apiResourcePath)}`;
+    return `https://localhost:3000${addPathSlash(apiResourcePath)}`;
   }
 
   return `https://api.hellowrld.tech${addPathSlash(apiResourcePath)}`;
