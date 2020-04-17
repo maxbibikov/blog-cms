@@ -43,7 +43,9 @@ export function MainNav({ authorized }) {
   return (
     <section className={styles.topbar}>
       <nav className={styles.nav_list}>
-        <img src={logo} className={styles.logo} alt="logo" />
+        <Link to="/">
+          <img src={logo} className={styles.logo} alt="logo" />
+        </Link>
         <StyledLink label="Posts" to="/posts" />
         <StyledLink label="Write" to="/new" activeOnlyWhenExact="true" />
         {authButton}

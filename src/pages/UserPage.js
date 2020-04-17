@@ -15,8 +15,8 @@ export function UserPage({ authorized, user, logoutAsync, loading }) {
     return (
       <section className={styles.container}>
         <h1>
-          Welcome back,{' '}
-          <span className={styles.usernameText}>{user.firstName}</span>!
+          Welcome,
+          <span className={styles.usernameText}>{` ${user.firstName}`}</span>!
           <span role="img" aria-label="funny ghost emoji">
             👻
           </span>
