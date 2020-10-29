@@ -12,7 +12,7 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -21,8 +21,8 @@
     "extends": "react-app"
   },
   "engines": {
-    "node": "12.14.1",
-    "npm": "6.14.2"
+    "node": "12.19.0",
+    "npm": "6.14.8"
   },
   "browserslist": {
     "production": [

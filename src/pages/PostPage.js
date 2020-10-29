@@ -56,6 +56,7 @@ export function PostPage({ posts, categories, authorized }) {
           postSlug={postSlug}
           setPostUpdated={setPostUpdated}
           deletePost={deletePost}
+          picture={postData.picture}
         />
       )}
     </section>

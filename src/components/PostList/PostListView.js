@@ -10,17 +10,20 @@ export function PostListView({ posts }) {
     return null;
   }
 
-  const renderPostList = posts.map(post => {
+  const renderPostList = posts.map((post) => {
     const description =
       post.description.length > 130
         ? `${post.description.substring(0, 130)}...`
         : post.description;
     const title =
       post.title.length > 50 ? `${post.title.substring(0, 50)}...` : post.title;
+    const imgUrl = post.picture || 'https://source.unsplash.com/random/760x380';
+
     return (
       <article className={styles.post} key={post._id}>
         <Link to={`/posts/${post.slug}`}>
           <header>
+            <img src={imgUrl} alt={title} className={styles.postImg} />
             <h2 className={styles.postTitle}>{title}</h2>
             <h4 className={styles.descriptionText}>{description}</h4>
           </header>
