@@ -4,6 +4,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import styles from './PostPage.module.css';
 import { PostForm } from '../components/PostForm/';
 import { NotAuthorized } from '../components/NotAuthorized/NotAuthorized';
+import { Dialog } from '../components/Dialog';
 
 // Utils
 import { fetchBlogApi } from '../utils';
@@ -12,11 +13,16 @@ import { Loader } from '../components/Loader';
 export function PostPage({ posts, categories, authorized }) {
   const [loading, setLoading] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [postUpdated, setPostUpdated] = useState(false);
   const { postSlug } = useParams();
 
   const postData = posts.find((post) => post.slug === postSlug);
   const deletePost = () => {
+    setShowDialog(true);
+  };
+
+  const deletePostAsync = () => {
     setLoading(true);
     fetchBlogApi(`/posts/${postSlug}`, 'DELETE')
       .then(() => {
@@ -59,6 +65,15 @@ export function PostPage({ posts, categories, authorized }) {
           picture={postData.picture}
         />
       )}
+
+      <Dialog
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+        className={styles.modal}
+        title="Delete Post?"
+        action={deletePostAsync}
+        actionBtnText="DELETE"
+      />
     </section>
   );
 }
