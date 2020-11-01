@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Dialog.module.css';
-import { func, bool, string } from 'prop-types';
+import { func, bool, string, node } from 'prop-types';
 
 // Components
 import { PrimaryBtn, SecondaryBtn } from '../Buttons';
@@ -11,6 +11,7 @@ export function Dialog({
   title,
   action,
   actionBtnText,
+  children,
 }) {
   if (!showDialog) {
     return null;
@@ -27,6 +28,7 @@ export function Dialog({
       <div className={styles.card}>
         <header className={styles.card__header}>
           <h3>{title}</h3>
+          {children}
         </header>
         <div className={styles.controls}>
           <PrimaryBtn onClick={action}>{actionBtnText}</PrimaryBtn>
@@ -44,5 +46,6 @@ Dialog.propTypes = {
   showDialog: bool.isRequired,
   setShowDialog: func.isRequired,
   title: string.isRequired,
+  children: node,
   actionBtnText: string.isRequired,
 };

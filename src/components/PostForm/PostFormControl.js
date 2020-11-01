@@ -31,6 +31,7 @@ export function PostFormControl(props) {
     setTextErr('');
     setTitleErr('');
     setTextErr('');
+    props.setLoading(true);
 
     return fetchBlogApi('/posts', 'POST', {
       title,
@@ -58,12 +59,14 @@ export function PostFormControl(props) {
               break;
           }
         } else {
-          props.setPostCreated(true);
+          props.setShowDialog(true);
         }
       })
       .catch((err) => {
-        props.setPostCreated(false);
         console.error('err: ', err);
+      })
+      .finally(() => {
+        props.setLoading(false);
       });
   };
   const updatePostAsync = () => {
