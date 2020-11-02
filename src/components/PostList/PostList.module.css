@@ -4,6 +4,32 @@
   width: 90%;
   margin-bottom: 10em;
 }
+
+.about {
+  display: flex;
+  flex-direction: column;
+}
+
+.about p {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.about a {
+  display: inline-block;
+  color: var(--accent-text-color);
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 2px solid var(--accent-bg-color);
+  font-weight: bold;
+  transition: all 0.1s linear;
+}
+
+.about a:hover {
+  color: var(--contrast-bg-color);
+  border-color: var(--contrast-bg-color);
+}
+
 .posts {
   display: flex;
   flex-direction: column;

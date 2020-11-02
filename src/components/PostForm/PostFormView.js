@@ -63,10 +63,10 @@ export function PostFormView({
         </h1>
         {formMode === 'New' ? (
           <div>
-            <SecondaryBtn
-              onClick={setRandomPost}
-              className={styles.post_example_btn}
-            >
+            <SecondaryBtn onClick={setRandomPost}>
+              <span role="img" aria-label="dice">
+                🎲{'\u00A0'}
+              </span>
               Generate post
             </SecondaryBtn>
           </div>

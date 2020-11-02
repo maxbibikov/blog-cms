@@ -37,6 +37,32 @@ export function PostListView({ posts }) {
 
   return (
     <section className={styles.container}>
+      <section className={styles.about}>
+        <h1>About</h1>
+        <p>
+          This is content management app for{' '}
+          <a
+            href="https://www.hellowrld.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            hellowrld.tech
+          </a>{' '}
+          - blog website.
+        </p>
+        <p>
+          You can <Link to="/new">write</Link> and update existing posts and see
+          changes at{' '}
+          <a
+            href="https://www.hellowrld.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            hellowrld.tech
+          </a>{' '}
+          in several minutes after new build is complete.
+        </p>
+      </section>
       <h1>Posts</h1>
       <div className={styles.posts}>{renderPostList}</div>
     </section>
