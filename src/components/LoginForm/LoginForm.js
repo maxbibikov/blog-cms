@@ -8,8 +8,8 @@ import { PrimaryBtn } from '../Buttons/PrimaryBtn/PrimaryBtn';
 import styles from './LoginForm.module.css';
 
 export function LoginForm({ loginAsync, error }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('jonsnow');
+  const [password, setPassword] = useState('jonsnow123');
   const [usernameErr, setUsernameErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
 
