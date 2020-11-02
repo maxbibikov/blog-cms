@@ -51,8 +51,8 @@ export function PostListView({ posts }) {
           - blog website.
         </p>
         <p>
-          You can <Link to="/new">write</Link> and update existing posts and see
-          changes at{' '}
+          You can <Link to="/new">write new</Link> post, update and delete
+          existing posts and see changes at{' '}
           <a
             href="https://www.hellowrld.tech"
             target="_blank"

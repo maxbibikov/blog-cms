@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { bool, arrayOf, shape } from 'prop-types';
-import { Redirect } from 'react-router-dom';
 // Components
 import { PostForm } from '../components/PostForm/';
 import { NotAuthorized } from '../components/NotAuthorized/NotAuthorized';
@@ -8,8 +7,7 @@ import { Dialog } from '../components/Dialog';
 import { Loader } from '../components/Loader';
 
 export function NewPostPage({ authorized, categories }) {
-  const [showDialog, setShowDialog] = useState(false);
-  const [redirectHome, setRedirectHome] = useState(false);
+  const [showDialogCreated, setShowDialogCreated] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const successMessage =
@@ -17,10 +15,6 @@ export function NewPostPage({ authorized, categories }) {
 
   if (!authorized) {
     return <NotAuthorized />;
-  }
-
-  if (redirectHome) {
-    return <Redirect to="/" />;
   }
 
   if (loading) {
@@ -33,17 +27,19 @@ export function NewPostPage({ authorized, categories }) {
         <PostForm
           formMode="New"
           categories={categories}
-          setShowDialog={setShowDialog}
+          setShowDialogCreated={setShowDialogCreated}
           category={categories[0]._id}
           loading={loading}
           setLoading={setLoading}
         />
         <Dialog
-          showDialog={showDialog}
-          setShowDialog={setShowDialog}
+          showDialog={showDialogCreated}
+          setShowDialog={setShowDialogCreated}
           title="New Post Created"
-          actionBtnText="To Posts"
-          action={() => setRedirectHome(true)}
+          actionBtnText="Visit"
+          action={() => {
+            window.open('https://www.hellowrld.tech', '_blank');
+          }}
         >
           <p>
             {successMessage}{' '}

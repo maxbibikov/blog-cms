@@ -59,7 +59,7 @@ export function PostFormControl(props) {
               break;
           }
         } else {
-          props.setShowDialog(true);
+          props.setShowDialogCreated(true);
         }
       })
       .catch((err) => {
@@ -70,6 +70,7 @@ export function PostFormControl(props) {
       });
   };
   const updatePostAsync = () => {
+    props.setLoading(true);
     return fetchBlogApi(`/posts/${props.postSlug}`, 'PUT', {
       title,
       description,
@@ -99,13 +100,13 @@ export function PostFormControl(props) {
               break;
           }
         } else {
-          props.setPostUpdated(true);
+          props.setShowDialogUpdated(true);
         }
       })
       .catch((err) => {
-        props.setPostUpdated(false);
         console.error('err: ', err);
-      });
+      })
+      .finally(() => props.setLoading(false));
   };
 
   const setRandomPost = () => {
@@ -173,11 +174,22 @@ PostFormControl.propTypes = {
   description: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  formMode: PropTypes.string.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  postSlug: PropTypes.string.isRequired,
+  setShowDialogUpdated: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  setShowDialogCreated: PropTypes.func.isRequired,
 };
 
 PostFormControl.defaultProps = {
+  postSlug: '',
   title: '',
   description: '',
   text: '',
   picture: 'https://source.unsplash.com/random/760x380',
+  setShowDialogCreated: () => {},
+  setShowDialogUpdated: () => {},
+  deletePost: () => {},
 };

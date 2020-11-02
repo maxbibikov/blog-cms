@@ -13,13 +13,13 @@ import { Loader } from '../components/Loader';
 export function PostPage({ posts, categories, authorized }) {
   const [loading, setLoading] = useState(false);
   const [deleted, setDeleted] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
-  const [postUpdated, setPostUpdated] = useState(false);
+  const [showDialogDeleted, setShowDialogDeleted] = useState(false);
+  const [showDialogUpdated, setShowDialogUpdated] = useState(false);
   const { postSlug } = useParams();
 
   const postData = posts.find((post) => post.slug === postSlug);
   const deletePost = () => {
-    setShowDialog(true);
+    setShowDialogDeleted(true);
   };
 
   const deletePostAsync = () => {
@@ -46,10 +46,6 @@ export function PostPage({ posts, categories, authorized }) {
     return <Redirect to="/" />;
   }
 
-  if (postUpdated) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <section className={styles.container}>
       {postData && Object.keys(postData).length > 0 && (
@@ -60,20 +56,38 @@ export function PostPage({ posts, categories, authorized }) {
           text={postData.text}
           categories={categories}
           postSlug={postSlug}
-          setPostUpdated={setPostUpdated}
           deletePost={deletePost}
           picture={postData.picture}
+          setLoading={setLoading}
+          setShowDialogUpdated={setShowDialogUpdated}
         />
       )}
 
       <Dialog
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
+        showDialog={showDialogDeleted}
+        setShowDialog={setShowDialogDeleted}
         className={styles.modal}
         title="Delete Post?"
         action={deletePostAsync}
         actionBtnText="DELETE"
       />
+      <Dialog
+        showDialog={showDialogUpdated}
+        setShowDialog={setShowDialogUpdated}
+        className={styles.modal}
+        title="Post Updated"
+        action={() => {
+          window.open(`https://www.hellowrld.tech/${postSlug}`, '_blank');
+        }}
+        actionBtnText="Visit"
+      >
+        <p>
+          In several minutes changes will apply at{' '}
+          <a
+            href={`https://www.hellowrld.tech/${postSlug}`}
+          >{`hellowrld.tech`}</a>
+        </p>
+      </Dialog>
     </section>
   );
 }
