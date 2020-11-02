@@ -8,7 +8,7 @@ import { PrimaryBtn } from '../Buttons/PrimaryBtn/PrimaryBtn';
 import styles from './LoginForm.module.css';
 
 export function LoginForm({ loginAsync, error }) {
-  const [username, setUsername] = useState('jonsnow');
+  const [username, setUsername] = useState('maxbibikov');
   const [password, setPassword] = useState('jonsnow123');
   const [usernameErr, setUsernameErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
@@ -57,13 +57,13 @@ export function LoginForm({ loginAsync, error }) {
     return true;
   };
 
-  const onUsernameChange = event => {
+  const onUsernameChange = (event) => {
     setUsername(event.target.value);
   };
-  const onPasswordChange = event => {
+  const onPasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  const onSubmitClick = event => {
+  const onSubmitClick = (event) => {
     setPasswordErr('');
     setUsernameErr('');
     const usernameValid = validateUsername();

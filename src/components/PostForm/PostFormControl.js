@@ -16,6 +16,7 @@ export function PostFormControl(props) {
   const [descriptionErr, setDescriptionErr] = useState('');
   const [textErr, setTextErr] = useState('');
   const [picture, setPicture] = useState(props.picture);
+  const [selectedRandomPost, setSelectedRandomPost] = useState(0);
 
   useEffect(() => {
     fetchRandomPosts()
@@ -111,10 +112,7 @@ export function PostFormControl(props) {
 
   const setRandomPost = () => {
     if (randomPosts.length > 0) {
-      const randomArticle = Math.round(
-        Math.random() * (randomPosts.length - 1)
-      );
-      const article = randomPosts[randomArticle];
+      const article = randomPosts[selectedRandomPost];
 
       let newTitle = '';
       if (article.title) {
@@ -125,9 +123,13 @@ export function PostFormControl(props) {
         }
       }
 
-      setPicture(
-        article.urlToImage || 'https://source.unsplash.com/random/760x380'
-      );
+      if (selectedRandomPost < randomPosts.length - 1) {
+        setSelectedRandomPost(selectedRandomPost + 1);
+      } else {
+        setSelectedRandomPost(0);
+      }
+
+      setPicture(article.image || 'https://source.unsplash.com/random/760x380');
       setTitle(newTitle.replace(/[^a-zA-Z\d\s]/gi, ''));
       setDescription(article.description || '');
       setText(article.content || '');
