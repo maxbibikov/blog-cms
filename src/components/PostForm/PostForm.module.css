@@ -14,28 +14,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1em;
-}
-
-.imgUrl_inputLabel {
-  display: block;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 0.3em;
-}
-
-.imgUrl_input {
-  box-sizing: border-box;
-  display: block;
-  margin-bottom: 1em;
-  width: 100%;
-}
-
-.img_preview {
-  display: block;
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 1em;
 }
 
 .select_label {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 // Components
 import { PostFormView } from './PostFormView';
 // Utils
@@ -15,36 +14,29 @@ export function PostFormControl(props) {
   const [titleErr, setTitleErr] = useState('');
   const [descriptionErr, setDescriptionErr] = useState('');
   const [textErr, setTextErr] = useState('');
-  const [picture, setPicture] = useState(props.picture);
 
   useEffect(() => {
     fetchRandomPosts()
-      .then((randomPosts) => {
+      .then(randomPosts => {
         setRandomPosts(randomPosts);
       })
-      .catch((err) => console.error(err));
+      .catch(err => console.error(err));
 
     return () => {};
   }, []);
 
   const createPostAsync = () => {
-    setTextErr('');
-    setTitleErr('');
-    setTextErr('');
-    props.setLoading(true);
-
     return fetchBlogApi('/posts', 'POST', {
       title,
       description,
       text,
       published: publish,
       category: props.categories[0]._id,
-      picture,
     })
-      .then((data) => {
+      .then(data => {
         if (data.errors) {
           const errorMsg = data.errors[0].msg;
-          switch (data.errors[0].param) {
+          switch (data.errors[0]) {
             case 'title':
               setTitleErr(errorMsg);
               break;
@@ -59,27 +51,23 @@ export function PostFormControl(props) {
               break;
           }
         } else {
-          props.setShowDialogCreated(true);
+          props.setPostCreated(true);
         }
       })
-      .catch((err) => {
+      .catch(err => {
+        props.setPostCreated(false);
         console.error('err: ', err);
-      })
-      .finally(() => {
-        props.setLoading(false);
       });
   };
   const updatePostAsync = () => {
-    props.setLoading(true);
     return fetchBlogApi(`/posts/${props.postSlug}`, 'PUT', {
       title,
       description,
       text,
       published: publish,
       category: props.categories[0]._id,
-      picture,
     })
-      .then((data) => {
+      .then(data => {
         if (data.error) {
           return console.error(data.error);
         }
@@ -100,13 +88,13 @@ export function PostFormControl(props) {
               break;
           }
         } else {
-          props.setShowDialogUpdated(true);
+          props.setPostUpdated(true);
         }
       })
-      .catch((err) => {
+      .catch(err => {
+        props.setPostUpdated(false);
         console.error('err: ', err);
-      })
-      .finally(() => props.setLoading(false));
+      });
   };
 
   const setRandomPost = () => {
@@ -125,9 +113,6 @@ export function PostFormControl(props) {
         }
       }
 
-      setPicture(
-        article.urlToImage || 'https://source.unsplash.com/random/760x380'
-      );
       setTitle(newTitle.replace(/[^a-zA-Z\d\s]/gi, ''));
       setDescription(article.description || '');
       setText(article.content || '');
@@ -163,33 +148,6 @@ export function PostFormControl(props) {
       setCategory={setCategory}
       categories={props.categories}
       deletePost={props.deletePost}
-      picture={picture}
-      setPicture={setPicture}
     />
   );
 }
-
-PostFormControl.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  setLoading: PropTypes.func.isRequired,
-  formMode: PropTypes.string.isRequired,
-  categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  postSlug: PropTypes.string.isRequired,
-  setShowDialogUpdated: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-  setShowDialogCreated: PropTypes.func.isRequired,
-};
-
-PostFormControl.defaultProps = {
-  postSlug: '',
-  title: '',
-  description: '',
-  text: '',
-  picture: 'https://source.unsplash.com/random/760x380',
-  setShowDialogCreated: () => {},
-  setShowDialogUpdated: () => {},
-  deletePost: () => {},
-};

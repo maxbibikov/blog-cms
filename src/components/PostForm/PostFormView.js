@@ -22,7 +22,7 @@ function CategorySelect({ categoryList, setCategory }) {
         className={styles.category_select}
         onChange={onChangeCategory}
       >
-        {categoryList.map((category) => {
+        {categoryList.map(category => {
           return <option key={category._id}>{category.name}</option>;
         })}
       </select>
@@ -49,8 +49,6 @@ export function PostFormView({
   categories,
   updatePostAsync,
   deletePost,
-  picture,
-  setPicture,
 }) {
   return (
     <section className={styles.container}>
@@ -63,33 +61,15 @@ export function PostFormView({
         </h1>
         {formMode === 'New' ? (
           <div>
-            <SecondaryBtn onClick={setRandomPost}>
-              <span role="img" aria-label="dice">
-                🎲{'\u00A0'}
-              </span>
+            <SecondaryBtn
+              onClick={setRandomPost}
+              className={styles.post_example_btn}
+            >
               Generate post
             </SecondaryBtn>
           </div>
         ) : null}
       </header>
-      {/* PHOTO URL INPUT */}
-      <div className={styles.row}>
-        {picture && (
-          <>
-            <label htmlFor="picture" className={styles.imgUrl_inputLabel}>
-              Image URL
-            </label>
-            <input
-              className={styles.imgUrl_input}
-              id="picture"
-              value={picture}
-              placeholder="Enter image URL"
-              onChange={(e) => setPicture(e.target.value)}
-            />
-            <img src={picture} alt={'preview'} className={styles.img_preview} />
-          </>
-        )}
-      </div>
       {/* TITLE INPUT */}
       <div className={styles.row}>
         <TextareaInput
